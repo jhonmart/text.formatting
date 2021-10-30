@@ -1,0 +1,8 @@
+{
+  "projectId": "s74khy",
+  "viewportWidth": 1440,
+  "viewportHeight": 800,
+  "baseURL": "https://kg9n0b08id.execute-api.sa-east-1.amazonaws.com/qa/",
+  "experimentalSessionSupport": true,
+  "numTestsKeptInMemory": 0
+}

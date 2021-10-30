@@ -1,0 +1,18 @@
+"Tests Client":
+  image: cypress/browsers:node14.17.0-chrome91-ff89
+  stage: test
+  before_script:
+    - yarn install
+  script:
+    - yarn lint
+    - yarn build
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos/**/*.mp4
+      - cypress/screenshots/**/*.png
+    expire_in: 1 day
+  only:
+    refs:
+      - merge_requests
+      - main
