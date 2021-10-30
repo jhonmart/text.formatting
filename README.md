@@ -1,4 +1,5 @@
-# appname
+# Text Formatting
+[![.github/workflows/github-actions-demo.yml](https://github.com/jhonmart/text.formatting/actions/workflows/github-actions-demo.yml/badge.svg)](https://github.com/jhonmart/text.formatting/actions/workflows/github-actions-demo.yml)
 
 ## Project setup
 ```
