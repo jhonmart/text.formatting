@@ -1,16 +1,16 @@
 <template>
   <section>
-    <Homepage />
+    <Formatting />
   </section>
 </template>
 
 <script>
-import Homepage from "@/components/Homepage.vue";
+import { Formatting } from "@/components/Formatting";
 
 export default {
   name: "App",
   components: {
-    Homepage
+    Formatting
   }
 };
 </script>

@@ -1,36 +1,10 @@
-<template>
-  <main>
-    <section v-html="outputValue" title="HTML View" />
-    <textarea
-      cols="30"
-      rows="10"
-      v-model="inputValue"
-      placeholder="Backend Input Code"
-    ></textarea>
-    <textarea
-      cols="30"
-      rows="10"
-      v-model="outputValue"
-      placeholder="HTML Input/Output Code"
-    ></textarea>
-    <textarea
-      cols="30"
-      rows="10"
-      @click="copyData"
-      :value="stringFormat"
-      placeholder="Backend Output Code"
-    ></textarea>
-  </main>
-</template>
-
-<script>
-export default {
-  name: "Homepage",
+export const Script = {
   data() {
     return {
       CHAR_FOR_LINE: 119,
       outputValue: "",
-      inputValue: ""
+      inputValue: "",
+      htmlChange: false
     };
   },
   watch: {
@@ -44,8 +18,9 @@ export default {
     },
     outputValue: {
       handler(value) {
-        if (value && /(> <)|( {1,}>)|(" )|( ")/.test(value))
+        if (value && /(> <)|( {1,}>)|(" )|( ")|( {2,})/.test(value))
           this.outputValue = value
+            .replace(/ {2,}/g, "")
             .replace(/(> <)/g, "><")
             .replace(/( {1,}>)/g, ">")
             .replace(/(" )|( ")/g, '"');
@@ -83,35 +58,13 @@ export default {
             message: "Nada para copiar!",
             type: "is-danger"
           });
+    },
+    changeState() {
+      this.htmlChange = !this.htmlChange;
+    },
+    updateHTML(ev) {
+      this.outputValue = ev.target.innerHTML;
+      this.snackToast.open("HTML atualizado");
     }
   }
 };
-</script>
-
-<style lang="scss" scoped>
-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-
-#input {
-  grid-row: 1;
-  grid-column: 2;
-}
-
-#output {
-  grid-row: 1;
-  grid-column: 1;
-}
-
-#inputData {
-  grid-row: 2;
-  grid-column: 1;
-}
-
-#outputData {
-  grid-row: 2;
-  grid-column: 2;
-}
-</style>
