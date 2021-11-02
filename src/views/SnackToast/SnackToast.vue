@@ -8,13 +8,17 @@
     >
       <div :class="type">
         <div>
-          <!-- <b-icon
+          <b-icon
             icon="check-circle"
-            type="is-green-dark"
+            type="is-success"
             v-if="actualToast === 0"
-          /> -->
-          <!-- <b-icon icon="close-circle" type="is-red" v-if="actualToast === 1" />
-          <b-icon icon="alert" type="is-orange" v-if="actualToast === 2" /> -->
+          />
+          <b-icon
+            icon="close-circle"
+            type="is-danger"
+            v-if="actualToast === 1"
+          />
+          <b-icon icon="alert" type="is-warning" v-if="actualToast === 2" />
 
           <p class="ml-15 has-text-weight-medium">
             <span v-html="message"></span>

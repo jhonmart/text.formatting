@@ -3,3 +3,19 @@ $green-dark: #71ab63;
 $orange: #f3915e;
 $refused-color: #df6d6c;
 $warning-light: #f8d9c8;
+
+
+$colors: (
+  "danger": (
+      $refused-color,
+      findColorInvert($refused-color)
+  ),
+  "success": (
+    $green-dark,
+    findColorInvert($green-dark)
+  ),
+  "warning": (
+    $orange,
+    findColorInvert($orange)
+  ),
+);

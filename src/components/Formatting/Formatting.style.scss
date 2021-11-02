@@ -1,0 +1,28 @@
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  * {
+    min-height: 50vh;
+  }
+}
+
+#input {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+#output {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+#inputData {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+#outputData {
+  grid-row: 2;
+  grid-column: 2;
+}
