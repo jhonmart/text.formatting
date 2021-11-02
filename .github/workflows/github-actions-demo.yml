@@ -27,6 +27,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    steps:
       - name: Build and Deploy
         uses: ./.github/actions/deploy
         with:
