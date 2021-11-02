@@ -9,29 +9,18 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 15.x]
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 12.x
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12.x
 
       - name: Install dependencies
         run: yarn install
       - run: yarn build
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build and Deploy
-        uses: ./.github/actions/deploy
-        with:
-          node-version: 12.x
         env:
             COMMIT_EMAIL: ${{ secrets.DEPLOY_MAIL }}
             COMMIT_NAME: jhon
