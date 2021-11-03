@@ -18,12 +18,14 @@ export const Script = {
     },
     outputValue: {
       handler(value) {
-        if (value && /(> <)|( {1,}>)|(" )|( ")|( {2,})/.test(value))
+        if (value && /(> <)|( {1,}>)|(" )|( ")|( {2,})|(\n)|&nbsp;/.test(value))
           this.outputValue = value
+            .replace(/&nbsp;/g, " ")
             .replace(/ {2,}/g, "")
             .replace(/(> <)/g, "><")
             .replace(/( {1,}>)/g, ">")
-            .replace(/(" )|( ")/g, '"');
+            .replace(/(" )|( ")/g, '"')
+            .replace(/\n/g, "");
       }
     }
   },
@@ -61,6 +63,7 @@ export const Script = {
     },
     changeState() {
       this.htmlChange = !this.htmlChange;
+      this.htmlChange && this.snackToast.open("HTML em modo de edição");
     },
     updateHTML(ev) {
       this.outputValue = ev.target.innerHTML;
