@@ -21,6 +21,13 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - run: yarn build
+        with:
+          name: deploy
+          path: |
+            doc
+            !doc/**/*.md
+            !doc/**/*.map
+            !doc/favicon.ico
 
       - name: Run unitary test
       - run: yarn test:unit
@@ -31,8 +38,8 @@ jobs:
       - name: Archive deploy artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: doc-without-markdown
+          name: artifacts
           path: |
-            doc
-            !doc/**/*.md
+            cypress/videos
+            cypress/screenshots
           retention-days: 3
