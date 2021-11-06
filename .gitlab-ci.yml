@@ -6,6 +6,7 @@
   script:
     - yarn lint
     - yarn build
+    - yarn test:unit
   artifacts:
     when: always
     paths:
