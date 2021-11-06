@@ -21,6 +21,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - run: yarn build
+      - run: yarn test:unit
         env:
             COMMIT_EMAIL: ${{ secrets.DEPLOY_MAIL }}
             COMMIT_NAME: jhon

@@ -23,12 +23,12 @@ export const Script = {
     normalizeHTML(html) {
       return html
         .trim()
+        .replace(/ {2,}/g, "")
         .replace(/'\n'/g, "")
         .replace(/\n/g, "")
-        .replace(/'$/, "")
         .replace(/'/, "")
+        .replace(/'$/, "")
         .replace(/&nbsp;/g, " ")
-        .replace(/ {2,}/g, "")
         .replace(/> </g, "><")
         .replace(/ {1,}>/g, ">")
         .replace(/" | "/g, '"');
