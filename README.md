@@ -7,9 +7,7 @@ yarn install
 ```
 
 ### Go demo
-```
 [Link here to Text Formatting](https://jhonmart.github.io/text.formatting)
-```
 
 ### Compiles and hot-reloads for development
 ```

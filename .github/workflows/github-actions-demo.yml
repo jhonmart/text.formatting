@@ -20,7 +20,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-      - run: yarn build
+        run: yarn build
+        uses: actions/upload-artifact@v2
         with:
           name: deploy
           path: |
@@ -30,12 +31,11 @@ jobs:
             !doc/favicon.ico
 
       - name: Run unitary test
-      - run: yarn test:unit
+        run: yarn test:unit
 
       - name: Run e2e test
-      - run: yarn serve &
-      - run: yarn test
-      - name: Archive deploy artifacts
+        run: yarn serve &
+        run: yarn test
         uses: actions/upload-artifact@v2
         with:
           name: artifacts
