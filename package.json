@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "test": "node_modules/cypress/bin/cypress run \"cypress/integration/basic/*\"",
     "test:unit": "vue-cli-service test:unit --require isomorphic-fetch"
   },
   "dependencies": {

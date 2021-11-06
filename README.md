@@ -6,6 +6,11 @@
 yarn install
 ```
 
+### Go demo
+```
+[Link here to Text Formatting](https://jhonmart.github.io/text.formatting)
+```
+
 ### Compiles and hot-reloads for development
 ```
 yarn serve
@@ -19,6 +24,16 @@ yarn build
 ### Lints and fixes files
 ```
 yarn lint
+```
+
+### Run tests E2E
+```
+yarn test
+```
+
+### Run tests unitary
+```
+yarn test:unit
 ```
 
 ### Customize configuration
