@@ -1,29 +1,29 @@
 <template>
   <main>
     <section
-      v-html="outputValue"
+      v-html="ioHTML"
       title="HTML View"
       @dblclick="changeState"
       @focusout="updateHTML"
-      :contenteditable="htmlChange"
+      :contenteditable="HTMLEditable"
     />
     <textarea
       cols="30"
       rows="10"
-      v-model="inputValue"
+      v-model="formattedTextInput"
       placeholder="Backend Input Code"
     ></textarea>
     <textarea
       cols="30"
       rows="10"
-      v-model="outputValue"
+      v-model="ioHTML"
       placeholder="HTML Input/Output Code"
     ></textarea>
     <textarea
       cols="30"
       rows="10"
       @click="copyData"
-      :value="stringFormat"
+      :value="formattedTextOutput"
       placeholder="Backend Output Code"
     ></textarea>
   </main>

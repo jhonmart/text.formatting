@@ -2,59 +2,46 @@ export const Script = {
   data() {
     return {
       CHAR_FOR_LINE: 119,
-      outputValue: "",
-      inputValue: "",
-      htmlChange: false
+      ioHTML: "",
+      formattedTextInput: "",
+      HTMLEditable: false
     };
   },
   watch: {
-    inputValue: {
+    formattedTextInput: {
       handler(value) {
-        if (value && / {2,}/.test(value))
-          this.inputValue = value.replace(/ {2,}/g, "");
-
-        this.outputValue = this.decoderText(value);
-      }
-    },
-    outputValue: {
-      handler(value) {
-        if (value && /(> <)|( {1,}>)|(" )|( ")|( {2,})|(\n)|&nbsp;/.test(value))
-          this.outputValue = value
-            .replace(/&nbsp;/g, " ")
-            .replace(/ {2,}/g, "")
-            .replace(/(> <)/g, "><")
-            .replace(/( {1,}>)/g, ">")
-            .replace(/(" )|( ")/g, '"')
-            .replace(/\n/g, "");
+        this.ioHTML = this.normalizeHTML(value);
       }
     }
   },
   computed: {
-    stringFormat() {
-      return this.encoderText(this.outputValue);
+    formattedTextOutput() {
+      return this.encoderText(this.ioHTML);
     }
   },
   methods: {
-    decoderText(text) {
-      const clearText = text.replace(/'\n'/g, "");
-      return clearText.slice(1, clearText.length - 1);
+    normalizeHTML(html) {
+      return html
+        .trim()
+        .replace(/'\n'/g, "")
+        .replace(/\n/g, "")
+        .replace(/'$/, "")
+        .replace(/'/, "")
+        .replace(/&nbsp;/g, " ")
+        .replace(/ {2,}/g, "")
+        .replace(/> </g, "><")
+        .replace(/ {1,}>/g, ">")
+        .replace(/" | "/g, '"');
     },
-    encoderText(htmlText) {
-      const arrayOut = [];
-
-      htmlText
-        .replace(/(> <)/g, "><")
-        .replace(/( {1,}>)/g, ">")
-        .replace(/(" )|( ")/g, '"')
+    encoderText(HTMLText) {
+      return this.normalizeHTML(HTMLText)
         .split(/(.{119})/)
-        .map(block => block.length && arrayOut.push(`'${block}'`));
-
-      return arrayOut.join("\n");
+        .reduce((acc, row) => (acc += row ? `'${row}'\n` : ""), "");
     },
     copyData() {
-      this.stringFormat
+      this.formattedTextOutput
         ? navigator.clipboard
-            .writeText(this.stringFormat)
+            .writeText(this.formattedTextOutput)
             .then(() => this.snackToast.open("Texto copiado!"))
         : this.snackToast.open({
             message: "Nada para copiar!",
@@ -62,11 +49,13 @@ export const Script = {
           });
     },
     changeState() {
-      this.htmlChange = !this.htmlChange;
-      this.htmlChange && this.snackToast.open("HTML em modo de edição");
+      this.HTMLEditable = !this.HTMLEditable;
+      this.snackToast.open(
+        this.HTMLEditable ? "HTML em modo de edição" : "HTML em modo de visão"
+      );
     },
     updateHTML(ev) {
-      this.outputValue = ev.target.innerHTML;
+      this.ioHTML = ev.target.innerHTML;
       this.snackToast.open("HTML atualizado");
     }
   }
