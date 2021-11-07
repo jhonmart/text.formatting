@@ -21,23 +21,15 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Config artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: deploy
-          path: |
-            doc
-            !doc/**/*.md
-            !doc/**/*.map
-            !doc/favicon.ico
-
       - name: Build project 
         run: yarn build
 
-      - name: Run unitary test
-        run: yarn test:unit
-
-      - name: Config test 
+      - name: Run unitary e2e test 
+        run: |
+          yarn serve &
+          yarn test
+      
+      - name: Config test
         uses: actions/upload-artifact@v2
         with:
           name: artifacts
@@ -46,8 +38,16 @@ jobs:
             cypress/screenshots
           retention-days: 3
 
-      - name: Run unitary e2e test 
-        run: |
-          yarn test:unit
-          yarn serve &
-          yarn test
+      - name: Run unitary test
+        run: yarn test:unit
+
+      - name: Deploy
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: |
+            docs/js/*.js
+            docs/css/*.css
+            docs/fonts/*
+            docs/index.html
+          commit-msg: deploy system
+          github-token: ${{ secrets.GITHUB_TOKEN }}
