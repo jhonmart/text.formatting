@@ -20,7 +20,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-        run: yarn build
+
+      - name: Config artifact
         uses: actions/upload-artifact@v2
         with:
           name: deploy
@@ -30,12 +31,13 @@ jobs:
             !doc/**/*.map
             !doc/favicon.ico
 
+      - name: Build project 
+        run: yarn build
+
       - name: Run unitary test
         run: yarn test:unit
 
-      - name: Run e2e test
-        run: yarn serve &
-        run: yarn test
+      - name: Config test 
         uses: actions/upload-artifact@v2
         with:
           name: artifacts
@@ -43,3 +45,9 @@ jobs:
             cypress/videos
             cypress/screenshots
           retention-days: 3
+
+      - name: Run unitary e2e test 
+        run: |
+          yarn test:unit
+          yarn serve &
+          yarn test
